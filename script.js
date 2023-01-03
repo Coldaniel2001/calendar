@@ -1,6 +1,10 @@
 const calendar = document.getElementById("calendar-month");
 const calendarMonth = document.getElementsByClassName("month")[0];
 
+
+  
+  
+
 const nextBtn = document.getElementById("next-btn");
 const prevBtn = document.getElementById("prev-btn");
 
@@ -37,21 +41,43 @@ function printDays(monthCounter, yearCounter) {
     (parseInt(date.getFullYear()) +
     yearCounter);
 
-    let numberDays = new Date(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      0
-    ).getDate();
-    for(let i = 0; i < numberDays; i++){
-        const day = document.createElement('div');
-        day.classList.add("day");
-        const dayNumber = document.createElement('p');
-        dayNumber.textContent = i+1;
-        calendar.appendChild(day);
-        day.appendChild(dayNumber);
-        
-    }
+  let numberDays = new Date(
+    date.getFullYear() + yearCounter,
+    date.getMonth() + 1 + monthCounter,
+    0
+  ).getDate();
+  for (let i = 0; i < numberDays; i++) {
+    const day = document.createElement("div");
+    day.classList.add("day");
+    day.addEventListener("click", addEventCalendar);
+    const dayNumber = document.createElement("p");
+    dayNumber.textContent = i + 1;
+    calendar.appendChild(day);
+    day.appendChild(dayNumber);
   }
-  
-printDays();
-  
+}
+function addEventCalendar(){
+    console.log("hola");
+ };
+
+function printNextMonth() {
+  monthCount++;
+
+  if (monthCount === 12) {
+    monthCount = 0;
+    yearCount++;
+  }
+
+  printDays(monthCount, yearCount);
+}
+
+function printPrevMonth() {
+  monthCount--;
+
+  if (monthCount === -1) {
+    monthCount = 11;
+    yearCount--;
+  }
+
+  printDays(monthCount, yearCount);
+}
